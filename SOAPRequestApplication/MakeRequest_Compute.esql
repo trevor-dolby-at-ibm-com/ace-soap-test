@@ -1,0 +1,15 @@
+DECLARE ns NAMESPACE 'http://ibm.com/CustomerDetails/';
+
+
+CREATE COMPUTE MODULE MakeRequest_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.Properties = InputRoot.Properties;
+		SET OutputRoot.SOAP.Body.ns:customerDetailsRequest.ns:customer_details.ns:service_header.ns:brand = 'brandName';
+		SET OutputRoot.SOAP.Body.ns:customerDetailsRequest.ns:customer_details.ns:personal_details.ns:name_details.ns:first_name = 'First';
+		SET OutputRoot.SOAP.Body.ns:customerDetailsRequest.ns:customer_details.ns:personal_details.ns:name_details.ns:last_name = 'Last';
+		SET OutputRoot.SOAP.Body.ns:customerDetailsRequest.ns:customer_details.ns:personal_details.ns:contact_details.ns:phone = '218-1234567';		
+		SET OutputRoot.SOAP.Body.ns:customerDetailsRequest.ns:customer_details.ns:personal_details.ns:contact_details.ns:address = '123 Main Street';
+		RETURN TRUE;
+	END;
+END MODULE;

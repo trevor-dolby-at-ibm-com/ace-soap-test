@@ -1,0 +1,20 @@
+
+
+CREATE COMPUTE MODULE CallableFlowUsedForTesting_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot = InputRoot;
+		DELETE LASTCHILD OF OutputRoot;
+		DELETE LASTCHILD OF OutputRoot;
+
+	    DECLARE WORKDIR CHARACTER;
+		SET WORKDIR = SUBSTRING(WorkPath BEFORE 'config');
+		CREATE LASTCHILD OF OutputRoot DOMAIN('RECMSG') PARSE(CAST('file:///' || WORKDIR || 'run/${TESTPROJECT}/resources/recordedSOAPresponse.mxml' AS BLOB CCSID 1208), 546, 1208, 'S', 'T', 'F', 0);
+		SET OutputRoot.Properties = OutputRoot.RECMSG.message.Properties;
+		SET OutputRoot.HTTPResponseHeader = OutputRoot.RECMSG.message.HTTPResponseHeader;
+		SET OutputRoot.SOAP = OutputRoot.RECMSG.message.SOAP;
+		
+		SET OutputRoot.RECMSG = NULL;
+		RETURN TRUE;
+	END;
+END MODULE;

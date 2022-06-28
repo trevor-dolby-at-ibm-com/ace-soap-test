@@ -1,0 +1,11 @@
+
+
+CREATE COMPUTE MODULE MakeRequest_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.Properties = InputRoot.Properties;
+		SET OutputRoot.JSON.Data.result.status = InputRoot.SOAP.Body.ns:customerDetailsResponse.ns:status;
+		SET OutputRoot.JSON.Data.result.customer_id = InputRoot.SOAP.Body.ns:customerDetailsResponse.ns:customer_id;
+		RETURN TRUE;
+	END;
+END MODULE;
