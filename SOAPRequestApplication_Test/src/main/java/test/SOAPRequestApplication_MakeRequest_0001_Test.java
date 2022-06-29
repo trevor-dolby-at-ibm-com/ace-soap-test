@@ -31,7 +31,7 @@ public class SOAPRequestApplication_MakeRequest_0001_Test {
 		TestSetup.restoreAllMocks();
 	}
 
-	//@Test
+	@Test
 	public void SOAPRequestApplication_MakeRequest_SOAP_Request_TestCase_001() throws TestException {
 
 		// Define the SpyObjectReference
